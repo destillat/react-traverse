@@ -1,7 +1,7 @@
 'use strict';
 
-Object.defineProperty(exports, '__esModule', {
-  value: true,
+Object.defineProperty(exports, "__esModule", {
+  value: true
 });
 exports.wrapRender = exports.transformComponents = exports.isStatelessComponent = undefined;
 
@@ -21,9 +21,7 @@ var _wrapRender = require('./wrapRender');
 
 var _wrapRender2 = _interopRequireDefault(_wrapRender);
 
-function _interopRequireDefault(obj) {
-  return obj && obj.__esModule ? obj : { default: obj };
-}
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.isStatelessComponent = _isStatelessComponent2.default;
 exports.transformComponents = _transformComponents2.default;

@@ -1,7 +1,7 @@
 'use strict';
 
-Object.defineProperty(exports, '__esModule', {
-  value: true,
+Object.defineProperty(exports, "__esModule", {
+  value: true
 });
 exports.transformComponentsInNode = transformComponentsInNode;
 exports.default = transformComponents;
@@ -18,19 +18,17 @@ var _wrapRender = require('./wrapRender');
 
 var _wrapRender2 = _interopRequireDefault(_wrapRender);
 
-function _interopRequireDefault(obj) {
-  return obj && obj.__esModule ? obj : { default: obj };
-}
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function transformComponentsInNode(node, transformComponent) {
   return (0, _traverse2.default)(node, {
     ComponentElement: function ComponentElement(path) {
       var _path$node = path.node,
-        type = _path$node.type,
-        props = _path$node.props;
+          type = _path$node.type,
+          props = _path$node.props;
 
       return _react2.default.createElement(transformComponent(type), props);
-    },
+    }
   });
 }
 
@@ -40,31 +38,21 @@ function transformComponents(transformComponent) {
     transformComponentsMemo.set(transformComponent, new WeakMap());
   }
   var transformComponentMemo = transformComponentsMemo.get(transformComponent);
-  return function(type) {
+  return function (type) {
     if (typeof type === 'string') {
       return type;
     }
     if (!transformComponentMemo.has(type)) {
       if (_react2.default.isValidElement(type)) {
-        transformComponentMemo.set(
-          type,
-          _react2.default.createElement(
-            transformComponents(transformComponent)(function() {
-              return type;
-            }),
-          ),
-        );
+        transformComponentMemo.set(type, _react2.default.createElement(transformComponents(transformComponent)(function () {
+          return type;
+        })));
       } else {
-        transformComponentMemo.set(
-          type,
-          transformComponent(
-            (0, _wrapRender2.default)(function(node) {
-              return transformComponentsInNode(node, function(childType) {
-                return transformComponents(transformComponent)(childType);
-              });
-            })(type),
-          ),
-        );
+        transformComponentMemo.set(type, transformComponent((0, _wrapRender2.default)(function (node) {
+          return transformComponentsInNode(node, function (childType) {
+            return transformComponents(transformComponent)(childType);
+          });
+        })(type)));
       }
     }
     return transformComponentMemo.get(type);

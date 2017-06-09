@@ -1,22 +1,10 @@
 'use strict';
 
-Object.defineProperty(exports, '__esModule', {
-  value: true,
+Object.defineProperty(exports, "__esModule", {
+  value: true
 });
 
-var _typeof = typeof Symbol === 'function' &&
-  typeof Symbol.iterator === 'symbol'
-  ? function(obj) {
-      return typeof obj;
-    }
-  : function(obj) {
-      return obj &&
-        typeof Symbol === 'function' &&
-        obj.constructor === Symbol &&
-        obj !== Symbol.prototype
-        ? 'symbol'
-        : typeof obj;
-    };
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 exports.default = autobind;
 /*
@@ -43,10 +31,7 @@ function boundMethod(target, key, descriptor) {
   var fn = descriptor.value;
 
   if (typeof fn !== 'function') {
-    throw new Error(
-      '@autobind decorator can only be applied to methods not: ' +
-        (typeof fn === 'undefined' ? 'undefined' : _typeof(fn)),
-    );
+    throw new Error('@autobind decorator can only be applied to methods not: ' + (typeof fn === 'undefined' ? 'undefined' : _typeof(fn)));
   }
 
   return {
@@ -59,10 +44,10 @@ function boundMethod(target, key, descriptor) {
       Reflect.defineProperty(this, key, {
         value: boundFn,
         configurable: true,
-        writable: true,
+        writable: true
       });
       return boundFn;
-    },
+    }
   };
 }
 
@@ -73,7 +58,7 @@ function boundClass(target) {
   // (Using reflect to get all keys including symbols)
   var keys = Reflect.ownKeys(target.prototype);
 
-  keys.forEach(function(key) {
+  keys.forEach(function (key) {
     // Ignore special case target method
     if (key === 'constructor') {
       return;
@@ -83,11 +68,7 @@ function boundClass(target) {
 
     // Only methods need binding
     if (typeof descriptor.value === 'function') {
-      Reflect.defineProperty(
-        target.prototype,
-        key,
-        boundMethod(target, key, descriptor),
-      );
+      Reflect.defineProperty(target.prototype, key, boundMethod(target, key, descriptor));
     }
   });
   return target;
