@@ -5,8 +5,7 @@
   "main": "dist/index.js",
   "scripts": {
     "test": "eslint . && mocha --compilers js:babel-core/register ./src/__tests__/*.js",
-    "build": "babel src --out-dir dist",
-    "precommit": "lint-staged"
+    "build": "babel src --out-dir dist"
   },
   "devDependencies": {
     "babel-core": "^6.24.1",
